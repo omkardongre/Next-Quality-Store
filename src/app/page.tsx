@@ -30,7 +30,7 @@ export default function Home() {
         <div className="relative hidden h-full w-1/2 md:block">
           <Image
             src={banner}
-            alt="Flow Shop banner"
+            alt="Next Quality banner"
             className="h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-secondary via-transparent to-transparent" />
@@ -73,7 +73,6 @@ async function FeaturedProducts() {
           <Product key={product._id} product={product} />
         ))}
       </div>
-      <pre>{JSON.stringify(featuredProducts, null, 2)}</pre>
     </div>
   );
 }
