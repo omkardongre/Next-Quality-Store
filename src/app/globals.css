@@ -67,8 +67,6 @@
   }
 }
 
-
-
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -76,4 +74,8 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.dark\:prose-invert:is(.dark *) {
+  --tw-prose-body: var(--tw-prose-invert-body);
 }

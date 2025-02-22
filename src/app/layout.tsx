@@ -3,6 +3,7 @@ import { Lora } from "next/font/google";
 import Footer from "./Footer";
 import "./globals.css";
 import Navbar from "./Navbar";
+import "react-medium-image-zoom/dist/styles.css";
 
 const lora = Lora({ subsets: ["latin"] });
 
