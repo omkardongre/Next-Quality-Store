@@ -5,6 +5,8 @@ export const metadata: Metadata = {
   description: "Terms and conditions for using our services",
 };
 
+export const dynamic = 'force-dynamic';
+
 export default function Page() {
   return (
     <main className="mx-auto max-w-4xl space-y-10 px-5 py-10 leading-7">
