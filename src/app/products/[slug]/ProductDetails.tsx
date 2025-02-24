@@ -1,5 +1,6 @@
 "use client";
 
+import AddToCartButton from "@/components/AddToCartButton";
 import {
   Accordion,
   AccordionContent,
@@ -31,10 +32,9 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
       ?.map((option) => ({
         [option.name || ""]: option.choices?.[0].description || "",
       }))
-      ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}) || {},
+      ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}) || {}
   );
 
-  
   const selectedVariant = findVariant(product, selectedOptions);
 
   const inStock = checkInStock(product, selectedOptions);
@@ -47,7 +47,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
 
   const selectedOptionsMedia = product.productOptions?.flatMap((option) => {
     const selectedChoice = option.choices?.find(
-      (choice) => choice.description === selectedOptions[option.name || ""],
+      (choice) => choice.description === selectedOptions[option.name || ""]
     );
     return selectedChoice?.media?.items ?? [];
   });
@@ -100,6 +100,15 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               )}
           </div>
         </div>
+        {inStock ? (
+          <AddToCartButton
+            product={product}
+            selectedOptions={selectedOptions}
+            quantity={quantity}
+          />
+        ) : (
+          "Out of stock"
+        )}
         {!!product.additionalInfoSections?.length && (
           <div className="space-y-1.5 text-sm text-muted-foreground">
             <span className="flex items-center gap-2">
