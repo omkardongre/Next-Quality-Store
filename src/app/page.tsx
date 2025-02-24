@@ -52,7 +52,7 @@ async function FeaturedProducts() {
 
   const wixClient = await getWixServerClient();
 
-  const collection = await getCollectionBySlug(wixClient, "featured-products");
+  const collection = await getCollectionBySlug(wixClient, "featured-product");
 
   if (!collection?._id) {
     return null;
