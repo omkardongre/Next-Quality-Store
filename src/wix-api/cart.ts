@@ -20,7 +20,7 @@ export async function getCart(wixClient: WixClient) {
   }
 }
 
-interface AddToCartValues {
+export interface AddToCartValues {
   product: products.Product;
   selectedOptions: Record<string, string>;
   quantity: number;
@@ -28,7 +28,7 @@ interface AddToCartValues {
 
 export async function addToCart(
   wixClient: WixClient,
-  { product, selectedOptions, quantity }: AddToCartValues,
+  { product, selectedOptions, quantity }: AddToCartValues
 ) {
   const selectedVariant = findVariant(product, selectedOptions);
 
