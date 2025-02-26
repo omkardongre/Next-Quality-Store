@@ -8,15 +8,13 @@ export async function getCart(wixClient: WixClient) {
     return await wixClient.currentCart.getCurrentCart();
   } catch (error) {
     if (
-      (error as { details?: { applicationError?: { code: string | number } } })
-        ?.details?.applicationError?.code === "OWNED_CART_NOT_FOUND" ||
-      (error as { details?: { applicationError?: { code: string | number } } })
-        ?.details?.applicationError?.code === 428
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (error as any).details.applicationError.code === "OWNED_CART_NOT_FOUND"
     ) {
-      return null;
+      return;
+    } else {
+      throw error;
     }
-    console.error("Cart fetch error:", error);
-    return null;
   }
 }
 
@@ -69,4 +67,19 @@ export async function updateCartItemQuantity(
 
 export async function removeCartItem(wixClient: WixClient, productId: string) {
   return wixClient.currentCart.removeLineItemsFromCurrentCart([productId]);
+}
+
+export async function clearCart(wixClient: WixClient) {
+  try {
+    return await wixClient.currentCart.deleteCurrentCart();
+  } catch (error) {
+    if (
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (error as any).details.applicationError.code === "OWNED_CART_NOT_FOUND"
+    ) {
+      return;
+    } else {
+      throw error;
+    }
+  }
 }

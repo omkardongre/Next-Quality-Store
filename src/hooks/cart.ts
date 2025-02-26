@@ -2,6 +2,7 @@ import { wixBrowserClient } from "@/lib/wix-client.browser";
 import {
   addToCart,
   AddToCartValues,
+  clearCart,
   getCart,
   removeCartItem,
   updateCartItemQuantity,
@@ -34,7 +35,7 @@ export function useAddItemToCart() {
     mutationFn: (values: AddToCartValues) =>
       addToCart(wixBrowserClient, values),
     onSuccess(data) {
-      toast("Item added to cart");
+      toast.success("Item added to cart");
       queryClient.cancelQueries({ queryKey });
       queryClient.setQueryData(queryKey, data.cart);
     },
@@ -113,5 +114,18 @@ export function useRemoveCartItem() {
     onSettled() {
       queryClient.invalidateQueries({ queryKey });
     },
+  });
+}
+
+export function useClearCart() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: () => clearCart(wixBrowserClient),
+    onSuccess() {
+      queryClient.setQueryData(queryKey, null);
+      queryClient.invalidateQueries({ queryKey });
+    },
+    retry: 3,
   });
 }
