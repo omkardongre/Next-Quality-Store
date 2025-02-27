@@ -1,4 +1,6 @@
-import { Tokens } from "@wix/sdk";
+import { env } from "@/env";
+import { files } from "@wix/media";
+import { ApiKeyStrategy, createClient, Tokens } from "@wix/sdk";
 import { cookies } from "next/headers";
 import { cache } from "react";
 import { WIX_SESSION_COOKIE } from "./constants";
@@ -16,4 +18,18 @@ export const getWixServerClient = cache(async () => {
   }
 
   return getWixClient(tokens);
+});
+
+export const getWixAdminClient = cache(() => {
+  const wixClient = createClient({
+    modules: {
+      files,
+    },
+    auth: ApiKeyStrategy({
+      apiKey: env.WIX_API_KEY,
+      siteId: env.NEXT_PUBLIC_WIX_SITE_ID,
+    }),
+  });
+
+  return wixClient;
 });

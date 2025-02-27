@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   description: "Your profile page",
 };
 
+export const dynamic = 'force-dynamic'
+
 export default async function Page() {
   const member = await getLoggedInMember(await getWixServerClient());
 
